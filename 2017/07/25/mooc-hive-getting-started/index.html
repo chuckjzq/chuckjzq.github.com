@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="记性越来越差，只能把学过的东西记下来，不然白学"><title>慕课，走近大数据之Hive入门--笔记 | 老姜工作室</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">慕课，走近大数据之Hive入门--笔记</h1><a id="logo" href="/.">老姜工作室</a><p class="description">数据挖掘 | 编程 | 学习笔记</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">慕课，走近大数据之Hive入门--笔记</h1><div class="post-meta">Jul 25, 2017<span> | </span><span class="category"><a href="/categories/数据分析/">数据分析</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#慕课，走近大数据之Hive入门–笔记"><span class="toc-number">1.</span> <span class="toc-text">慕课，走近大数据之Hive入门–笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据仓库"><span class="toc-number">1.1.</span> <span class="toc-text">数据仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结构和建立过程"><span class="toc-number">1.1.1.</span> <span class="toc-text">结构和建立过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OLTP-OLAP"><span class="toc-number">1.1.2.</span> <span class="toc-text">OLTP,OLAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据仓库中的数据模型"><span class="toc-number">1.1.3.</span> <span class="toc-text">数据仓库中的数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#星型模型"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">星型模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#雪花模型"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">雪花模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Hive"><span class="toc-number">1.2.</span> <span class="toc-text">什么是Hive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hive的体系结构"><span class="toc-number">1.2.1.</span> <span class="toc-text">Hive的体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是元数据"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">什么是元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hive的元数据"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">Hive的元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一条HQL语句如何在hive中查询的"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">一条HQL语句如何在hive中查询的</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive-安装"><span class="toc-number">1.3.</span> <span class="toc-text">Hive 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive的管理"><span class="toc-number">1.4.</span> <span class="toc-text">Hive的管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLI命令行方式"><span class="toc-number">1.4.1.</span> <span class="toc-text">CLI命令行方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web界面方式-amp-远程"><span class="toc-number">1.4.2.</span> <span class="toc-text">web界面方式 & 远程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive的数据类型"><span class="toc-number">1.5.</span> <span class="toc-text">Hive的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive的数据模型"><span class="toc-number">1.6.</span> <span class="toc-text">Hive的数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hive的数据存储"><span class="toc-number">1.6.1.</span> <span class="toc-text">Hive的数据存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内部表-Table"><span class="toc-number">1.6.2.</span> <span class="toc-text">内部表 Table</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建表"><span class="toc-number">1.6.2.1.</span> <span class="toc-text">创建表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分区表-Partition"><span class="toc-number">1.6.3.</span> <span class="toc-text">分区表 Partition</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#例子说明"><span class="toc-number">1.6.3.1.</span> <span class="toc-text">例子说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#建立分区"><span class="toc-number">1.6.3.2.</span> <span class="toc-text">建立分区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外部表-External-Table"><span class="toc-number">1.6.4.</span> <span class="toc-text">外部表 External Table</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#桶表-Bucket-Table"><span class="toc-number">1.6.5.</span> <span class="toc-text">桶表 Bucket Table</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#视图-View"><span class="toc-number">1.6.6.</span> <span class="toc-text">视图 View</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#例子"><span class="toc-number">1.6.6.1.</span> <span class="toc-text">例子</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="post-content"><h1 id="慕课，走近大数据之Hive入门–笔记"><a href="#慕课，走近大数据之Hive入门–笔记" class="headerlink" title="慕课，走近大数据之Hive入门–笔记"></a>慕课，走近大数据之Hive入门–笔记</h1><ul>
+<li>Hadoop</li>
+<li>SQL</li>
+<li>HDFS</li>
+</ul>
+<h2 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h2><p>数据仓库就是数据库<br>支持企业或组织的<strong>决策分析</strong>处理，是<strong>面向主题</strong>的，<strong>集成的</strong> ，<strong>不可更新</strong>的（主要是查询）。</p>
+<h3 id="结构和建立过程"><a href="#结构和建立过程" class="headerlink" title="结构和建立过程"></a>结构和建立过程</h3><ol>
+<li>数据源：业务数据系统（mysql），文档资料，其他数据</li>
+<li>ETL：数据存储及管理，抽取、转换、装载</li>
+<li>数据仓库引擎：服务器</li>
+<li>前端展示：查询、数据报表、数据分析</li>
+</ol>
+<h3 id="OLTP-OLAP"><a href="#OLTP-OLAP" class="headerlink" title="OLTP,OLAP"></a>OLTP,OLAP</h3><ul>
+<li>TP: 联机事务处理:银行转账</li>
+<li>AP: 联机分析处理：商品推荐系统，查询，更新，插入</li>
+</ul>
+<h3 id="数据仓库中的数据模型"><a href="#数据仓库中的数据模型" class="headerlink" title="数据仓库中的数据模型"></a>数据仓库中的数据模型</h3><h4 id="星型模型"><a href="#星型模型" class="headerlink" title="星型模型"></a>星型模型</h4><p>以某一个东西为核心<br><img src="/2017/07/25/mooc-hive-getting-started/xing.png" alt="星型模型"></p>
+<h4 id="雪花模型"><a href="#雪花模型" class="headerlink" title="雪花模型"></a>雪花模型</h4><p>在星型模型发展起来的<br><img src="/2017/07/25/mooc-hive-getting-started/xuehua.png" alt="雪花模型"></p>
+<h2 id="什么是Hive"><a href="#什么是Hive" class="headerlink" title="什么是Hive"></a>什么是Hive</h2><ul>
+<li>Hive是建立在Hadoop HDFS上的数据仓库基础框架：Hive的数据是保存在HDFS上的。</li>
+<li>Hive可以用来进行数据提取转化加载</li>
+<li>利用sql语句</li>
+<li>Hive允许熟悉MapReduce开发者的开发自定义的mapper和reducer来处理内建的mapper和reducer无法完成的复杂的分析工作。</li>
+<li>Hive是<strong>SQL解析引擎</strong>，他将SQL语句转移成M/R job然后在Hadoop执行。</li>
+<li><strong>Hive的表其实就是HDFS的目录/文件（文件就是数据）</strong></li>
+</ul>
+<h3 id="Hive的体系结构"><a href="#Hive的体系结构" class="headerlink" title="Hive的体系结构"></a>Hive的体系结构</h3><p><img src="/2017/07/25/mooc-hive-getting-started/tixi_1.png" alt="Hive的体系结构"></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/tixi_2.png" alt="体系结构"></p>
+<h4 id="什么是元数据"><a href="#什么是元数据" class="headerlink" title="什么是元数据"></a>什么是元数据</h4><p>元数据被定义为：提供关于信息资源或数据的一种结构化的数据,是对信息资源的结构化的描述。其作用为：描述信息资源或数据本身的特征和属性,规定数字化信息的组织,具有定位、发现、证明、评估、选择等功能。</p>
+<p>元数据(meta data)——“data about data” 关于数据的数据，一般是结构化数据（如存储在数据库里的数据，规定了字段的长度、类型等）。元数据是指从信息资源中抽取出来的用于说明其特征、内容的结构化的数据(如题名,版本、出版数据、相关说明,包括检索点等)，用于组织、描述、检索、保存、管理信息和知识资源。</p>
+<ul>
+<li><p>什么是元数据<br>  任何文件系统中的数据分为数据和元数据。数据是指普通文件中的实际数据，而元数据指用来描述一个文件的特征的系统数据，诸如访问权限、文件拥有者以及文件数据块的分布信息(inode…)等等。在集群文件系统中，分布信息包括文件在磁盘上的位置以及磁盘在集群中的位置。用户需要操作一个文件必须首先得到它的元数据，才能定位到文件的位置并且得到文件的内容或相关属性。</p>
+</li>
+<li><p>元数据管理方式<br>  元数据管理有两种方式。集中式管理和分布式管理。集中式管理是指在系统中有一个节点专门司职元数据管理，所有元数据都存储在该节点的存储设备上。所有客户端对文件的请求前，都要先对该元数据管理器请求元数据。分布式管理是指将元数据存放在系统的任意节点并且能动态的迁移。对元数据管理的职责也分布到各个不同的节点上。大多数集群文件系统都采用集中式的元数据管理。因为集中式管理实现简单，一致性维护容易，在一定的操作频繁度内可以提供较满意的性能。缺点是单一失效点问题，若该服务器失效，整个系统将无法正常工作。而且，当对元数据的操作过于频繁时，集中的元数据管理成为整个系统的性能瓶颈。</p>
+<pre><code>分布式元数据管理的好处是解决了集中式管理的单一失效点问题， 而且性能不会随着操作频繁而出现瓶颈。其缺点是，实现复杂，一致性维护复杂，对性能有一定影响。
+</code></pre></li>
+</ul>
+<h4 id="Hive的元数据"><a href="#Hive的元数据" class="headerlink" title="Hive的元数据"></a>Hive的元数据</h4><p>元数据(meta data)——“data about data” 关于数据的数据，一般是结构化数据（如存储在数据库里的数据，规定了字段的长度、类型等）。元数据是指从信息资源中抽取出来的用于说明其特征、内容的结构化的数据(如题名,版本、出版数据、相关说明,包括检索点等)，用于组织、描述、检索、保存、管理信息和知识资源。</p>
+<ul>
+<li>Hive将元数据存储在数据库中（metastore），支持mysql、derby等数据库</li>
+<li>Hive中的元数据包括：表的名字、表的列和分区及其属性、表的属性（是否为外部表等）、表的数据所在的目录等。</li>
+</ul>
+<p><img src="/2017/07/25/mooc-hive-getting-started/yuan.png" alt="元数据"></p>
+<h4 id="一条HQL语句如何在hive中查询的"><a href="#一条HQL语句如何在hive中查询的" class="headerlink" title="一条HQL语句如何在hive中查询的"></a>一条HQL语句如何在hive中查询的</h4><ul>
+<li>解释器、编译器、优化器完成HQL查询语句从词法分析、语法分析、编译、优化以及查询计划的生成。生成的查询计划存储在HDFS中，并在随后有MapReduce调用执行。<br><img src="/2017/07/25/mooc-hive-getting-started/zhixing.png" alt="执行计划"></li>
+</ul>
+<h2 id="Hive-安装"><a href="#Hive-安装" class="headerlink" title="Hive 安装"></a>Hive 安装</h2><ul>
+<li><p>安装模式：指的是元数据 数据库存储的地方，是安装在本地还是远程等等</p>
+<ul>
+<li>嵌入模式</li>
+<li>本地模式</li>
+<li>远程模式</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2017/07/25/mooc-hive-getting-started/qianru.png" alt="嵌入模式"></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/qianru_2.png" alt="嵌入模式"></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/bendi.png" alt="本地"><br><img src="/2017/07/25/mooc-hive-getting-started/yuancheng.png" alt="远程模式"></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/yuancheng2.png" alt="远程模式"></p>
+<h2 id="Hive的管理"><a href="#Hive的管理" class="headerlink" title="Hive的管理"></a>Hive的管理</h2><ul>
+<li>CLI命令行方式</li>
+<li>web界面方式</li>
+<li>远程方式</li>
+</ul>
+<h3 id="CLI命令行方式"><a href="#CLI命令行方式" class="headerlink" title="CLI命令行方式"></a>CLI命令行方式</h3><p>-S 静默模式。<br><img src="/2017/07/25/mooc-hive-getting-started/cli_1.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/cli_2.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/cli_3.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/cli_4.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/cli_5.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/cli_6.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/cli_7.png" alt=""></p>
+<h3 id="web界面方式-amp-远程"><a href="#web界面方式-amp-远程" class="headerlink" title="web界面方式 &amp; 远程"></a>web界面方式 &amp; 远程</h3><p><img src="/2017/07/25/mooc-hive-getting-started/web_1.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/yc.png" alt=""></p>
+<h2 id="Hive的数据类型"><a href="#Hive的数据类型" class="headerlink" title="Hive的数据类型"></a>Hive的数据类型</h2><p><img src="/2017/07/25/mooc-hive-getting-started/leixing_1.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/leixing_2.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/leixing_3.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/leixing_4.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/leixing_5.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/leixing_6.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/leixing_7.png" alt=""></p>
+<p>结构体和数组的区别就是：结构体可以保护不同的数据类型，数组里面存的数据是相同类型的。<br><img src="/2017/07/25/mooc-hive-getting-started/leixing_8.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/leixing_9.png" alt=""></p>
+<p><img src="/2017/07/25/mooc-hive-getting-started/leixing_10.png" alt=""></p>
+<h2 id="Hive的数据模型"><a href="#Hive的数据模型" class="headerlink" title="Hive的数据模型"></a>Hive的数据模型</h2><h3 id="Hive的数据存储"><a href="#Hive的数据存储" class="headerlink" title="Hive的数据存储"></a>Hive的数据存储</h3><ul>
+<li><strong><em>Hive的数据都是在HDFS文件系统当中，在Hive中建一个表都是在HDFS中新建一个文件夹，而在表中的数据就对应于文件夹下面的文件。</em></strong><ul>
+<li>数据库中的显示<br><img src="/2017/07/25/mooc-hive-getting-started/moxing_1.png" alt=""></li>
+<li>在HDFS中的<strong>目录</strong>和<strong>文件</strong>结构<br><img src="/2017/07/25/mooc-hive-getting-started/moxing_2.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/moxing_3.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/moxing_4.png" alt=""></li>
+</ul>
+</li>
+<li><p><strong>Hive中的表没有专门的数据存储格式。</strong></p>
+</li>
+<li><p>存储结构主要包括：数据库、文件、表、视图</p>
+</li>
+<li><p>可以直接加载文本文件（.txt等）</p>
+</li>
+<li><p>创建表时，指定Hive数据的<em>列分隔符</em>与<em>行分隔符</em>。</p>
+</li>
+</ul>
+<p>表包括：</p>
+<ul>
+<li>Table 内部表</li>
+<li>Partition 分区表</li>
+<li>External Table 外部表</li>
+<li>Bucket Table 桶表</li>
+</ul>
+<p>还有一个：</p>
+<ul>
+<li>视图</li>
+</ul>
+<h3 id="内部表-Table"><a href="#内部表-Table" class="headerlink" title="内部表 Table"></a>内部表 Table</h3><ul>
+<li>与数据库中Table在概念上相似</li>
+<li>每一个Table在Hive中都有一个相应的目录存储数据</li>
+<li>所有的Table数据（不包括External Table）都保存在这个目录中</li>
+<li>删除表时，元数据和数据都会被删除。</li>
+</ul>
+<h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> t1</div><div class="line">(tid <span class="built_in">int</span>, tname <span class="keyword">string</span>, age <span class="built_in">int</span>);</div></pre></td></tr></table></figure>
+<p>指定目录：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> t2</div><div class="line">(tid <span class="built_in">int</span>, tname <span class="keyword">string</span>, age <span class="built_in">int</span>)</div><div class="line">location <span class="string">'/mytable/hive/t2'</span>;</div></pre></td></tr></table></figure>
+<p>指定分隔符：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> t3</div><div class="line">(tid <span class="built_in">int</span>, tname <span class="keyword">string</span>, age <span class="built_in">int</span>)</div><div class="line"><span class="keyword">row</span> <span class="keyword">format</span> <span class="keyword">delimited</span> <span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">','</span>;</div></pre></td></tr></table></figure>
+<p>创建表时，存储数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> t4</div><div class="line"><span class="keyword">as</span></div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> sample_data;</div></pre></td></tr></table></figure>
+<p>查看hdfs文件：</p>
+<p><code># hdfs dfs -cat /user/hive/warhouse/t4/000000_0</code></p>
+<p>在表上添加新的列：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">add</span> <span class="keyword">columns</span>(english <span class="built_in">int</span>);</div></pre></td></tr></table></figure>
+<p>查看表结构：<br><code>desc t1;</code></p>
+<p>删除表（如果开启了回收站就会移入到回收站中）：<br><code>drop t1</code></p>
+<h3 id="分区表-Partition"><a href="#分区表-Partition" class="headerlink" title="分区表 Partition"></a>分区表 Partition</h3><p>当我们数据量非常大的时候，我们需要按照一定的<strong>条件</strong>，把数据<strong>分区</strong>，这样在查询的时候可以减少数据的扫描量，<strong>提高效率</strong>。</p>
+<p>可以通过查看执行计划来查看查询执行步骤。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">explain</span> <span class="keyword">sql</span>语句</div></pre></td></tr></table></figure>
+<ul>
+<li>Patition对应于数据库的Partition列的秘籍索引</li>
+<li>在Hive中，表中的一个Partition对应于表下的一个目录，所有的Partition的数据都存储在对应的目录中。</li>
+</ul>
+<h4 id="例子说明"><a href="#例子说明" class="headerlink" title="例子说明"></a>例子说明</h4><p>要查询所有男性的学生，如果要查询的话要全表扫描，这样的话效率相对很低。<br>可以建立一张分区表，分区表就是一张表，可以指明分区的条件。<br>这里为性别作为分区条件，所有查询男性只要扫描男性的分区就可以了，而不需要扫描全表。<br><img src="/2017/07/25/mooc-hive-getting-started/partition_1.png" alt=""></p>
+<h4 id="建立分区"><a href="#建立分区" class="headerlink" title="建立分区"></a>建立分区</h4><p>接上面的例子</p>
+<ol>
+<li><strong>创建分区表：</strong></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> partition_table</div><div class="line">(<span class="keyword">sid</span> <span class="built_in">int</span>, sname <span class="keyword">string</span>)</div><div class="line">partitioned <span class="keyword">by</span> (gender <span class="keyword">string</span>)</div><div class="line"><span class="keyword">row</span> <span class="keyword">format</span> <span class="keyword">delimited</span> <span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">','</span> <span class="comment">-- 指定分隔符</span></div></pre></td></tr></table></figure>
+<ol>
+<li>把数据导入到分区表：<br>（生成性别为M的分区）</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> partition_table <span class="keyword">partition</span>(gender=<span class="string">'M'</span>) <span class="keyword">select</span> <span class="keyword">sid</span>,sname</div><div class="line"><span class="keyword">from</span> sample_data <span class="keyword">where</span> gender=<span class="string">'M'</span>;</div></pre></td></tr></table></figure>
+<p>注：partition(gender=’M’)这跳语句是指定分区条件</p>
+<p>（生成性别为F的分区）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> partition_table partiton(gender=<span class="string">'F'</span>)<span class="keyword">select</span> <span class="keyword">sid</span>, sname</div><div class="line"><span class="keyword">from</span> sample_data <span class="keyword">where</span> gender=<span class="string">'F'</span></div></pre></td></tr></table></figure>
+<p>hdfs 目录结构：</p>
+<p>可以看到有两个字目录（就是分区），每个子目录下都有一个文件。<br><img src="/2017/07/25/mooc-hive-getting-started/partition_2.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/partition_3.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/partition_4.png" alt=""></p>
+<ol>
+<li>查询分区表<br>查询的时候就像和查询普通表一样，但是这个表是分区表。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> partition_table <span class="keyword">where</span> gender=<span class="string">'M'</span>;</div></pre></td></tr></table></figure>
+<h3 id="外部表-External-Table"><a href="#外部表-External-Table" class="headerlink" title="外部表 External Table"></a>外部表 External Table</h3><p>外部表是保存在hive之外的一个hdfs中。</p>
+<ul>
+<li>指向已经在HDFS中存在的数据，可以创建分区(Partition)</li>
+<li>它和内部表在元数据的组织上是相同的，而实际数据的存储则有较大的差异。</li>
+<li>外部表<strong>只是一个过程</strong>，加载数据和创建表同时完成，并不会移动到数据仓库目录中，只是与外部数据建立一个链接。当删除一个外部表时，仅删除该链接。<br><img src="/2017/07/25/mooc-hive-getting-started/waibu_1.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/waibu_2.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/waibu_3.png" alt=""><br><img src="/2017/07/25/mooc-hive-getting-started/waibu_4.png" alt=""></li>
+</ul>
+<ol>
+<li>创建外部表</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> external_student</div><div class="line">(<span class="keyword">sid</span> <span class="built_in">int</span>, sname <span class="keyword">string</span>, age <span class="built_in">int</span>)</div><div class="line"><span class="keyword">row</span> <span class="keyword">format</span> <span class="keyword">delimited</span> <span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">','</span></div><div class="line">location <span class="string">'/input'</span>;</div></pre></td></tr></table></figure>
+<h3 id="桶表-Bucket-Table"><a href="#桶表-Bucket-Table" class="headerlink" title="桶表 Bucket Table"></a>桶表 Bucket Table</h3><p>减少系统热快，提高查询速度。</p>
+<ul>
+<li>桶表是对数据进行哈希取值，然后放到不同文件中存储。</li>
+</ul>
+<p>可以按照学生的名字存，把学生的名字进行<strong>哈希运算</strong>，把<strong>哈希值相同的名字存为一个桶</strong>。<br><img src="/2017/07/25/mooc-hive-getting-started/tong_1.png" alt="桶表"></p>
+<ol>
+<li>创建桶表</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> bucket_table</div><div class="line">(<span class="keyword">sid</span> <span class="built_in">int</span>, sname <span class="keyword">string</span>, age <span class="built_in">int</span>)</div><div class="line">clustered <span class="keyword">by</span> (sname) <span class="keyword">into</span> <span class="number">5</span> buckets;</div></pre></td></tr></table></figure>
+<p>注：into后面跟的是桶的数量。</p>
+<h3 id="视图-View"><a href="#视图-View" class="headerlink" title="视图 View"></a>视图 View</h3><p>优点：简化查询</p>
+<ul>
+<li>视图是一种<strong>虚表</strong>，是一个逻辑概念；可以跨越多张表。</li>
+<li>视图建立在已有表的基础上，视图依赖以建立的这些表称为基表。</li>
+<li>视图可以简化复杂的查询。</li>
+</ul>
+<p><strong>什么是虚表？</strong></p>
+<p>可以把<em>表</em>理解成物理概念，数据库中的<em>数据</em>都是存储在表中的。<br>视图是一个表，<strong>操作</strong>视图的<strong>方式</strong>和操作表的方式是<strong>完全一样</strong>的。<br>视图是一个虚表，<strong>虚</strong>代表什么意思呢？<strong>视图是不存数据的，视图所查出来的数据都是来自于视图所依赖的表</strong>。<br><img src="/2017/07/25/mooc-hive-getting-started/xubiao.png" alt=""></p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><ol>
+<li>创建视图<br>从两个表构建一个视图。</li>
+</ol>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">--查询员工信息：员工号，姓名，月薪，年薪，部门名称</div><div class="line"></div><div class="line"><span class="keyword">create</span> <span class="keyword">view</span> empinfo</div><div class="line"><span class="keyword">as</span></div><div class="line"><span class="keyword">select</span> <span class="built_in">e</span>.empno, <span class="built_in">e</span>.ename, <span class="built_in">e</span>.sal, <span class="built_in">e</span>.sal*<span class="number">12</span> annlsal, d.dname</div><div class="line"><span class="keyword">from</span> emp <span class="built_in">e</span>, dept d</div><div class="line"><span class="keyword">where</span> <span class="built_in">e</span>.deptno=d.deptno;</div></pre></td></tr></table></figure>
+<ol>
+<li>查询<br>查询的语句和表的查询一样。</li>
+</ol>
+<p>注：hive中不支持物化视图。</p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://zhiqiang.studio/2017/07/25/mooc-hive-getting-started/" data-id="cj5jiupk6001lezhwum7n55ts" class="article-share-link">分享</a><div class="tags"><a href="/tags/Hive/">Hive</a></div><div class="post-nav"><a href="/2017/07/24/Funnel/" class="next">漏斗图</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Leetcode刷题/">Leetcode刷题</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Matlab/">Matlab</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/R语言/">R语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/matplotlib/">matplotlib</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/sklearn/">sklearn</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/爬虫/">爬虫</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/matplotlib/" style="font-size: 15px;">matplotlib</a> <a href="/tags/easy/" style="font-size: 15px;">easy</a> <a href="/tags/BeautifulSoup/" style="font-size: 15px;">BeautifulSoup</a> <a href="/tags/R语言/" style="font-size: 15px;">R语言</a> <a href="/tags/无监督/" style="font-size: 15px;">无监督</a> <a href="/tags/Matlab/" style="font-size: 15px;">Matlab</a> <a href="/tags/监督学习/" style="font-size: 15px;">监督学习</a> <a href="/tags/工作流程/" style="font-size: 15px;">工作流程</a> <a href="/tags/数学/" style="font-size: 15px;">数学</a> <a href="/tags/可视化/" style="font-size: 15px;">可视化</a> <a href="/tags/Hive/" style="font-size: 15px;">Hive</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/numpy/" style="font-size: 15px;">numpy</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/爬虫/" style="font-size: 15px;">爬虫</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/sklearn/" style="font-size: 15px;">sklearn</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/25/mooc-hive-getting-started/">慕课，走近大数据之Hive入门--笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/24/Funnel/">漏斗图</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/23/数据分析在做什么/">数据分析在做什么</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/22/BeautifulSoup-learning/">BeautifulSoup学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/pachong2/">爬虫背景调研学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/pachong-learning/">爬虫 http协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/mult-plot/">python 画多个子图</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/python-json/">python-json</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/python-note/">python note</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/sql-function/">sql 内建函数</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://blog.csdn.net/u012925804" title="My CSDN" target="_blank">My CSDN</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">老姜工作室.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
